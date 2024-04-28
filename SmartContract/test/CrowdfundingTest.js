@@ -19,9 +19,9 @@ describe("Crowdfunding", function () {
   });
 
   describe("Deployment", function () {
-    // it("Should set the right owner", async function () {
-    //   expect(await crowdfunding.owner()).to.equal(owner.address);
-    // });
+    it("Should set the right owner", async function () {
+      expect(await crowdfunding.owner()).to.equal(owner.address);
+    });
 
     it("Should initialize correctly", async function () {
       expect(await crowdfunding.token()).to.equal(owner.address);
