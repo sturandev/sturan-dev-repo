@@ -25,7 +25,8 @@ Contoh:
 
 npx hardhat compile
 npx hardhat test
-npx hardhat run scripts/deploy.js --network rinkeby
+npx hardhat run scripts/deploy.js --network sepolia
+```
 
 Kontribusi
 Kontribusi dipersilakan! Silakan fork repositori ini dan buat Pull Request jika Anda memiliki perubahan yang ingin Anda tambahkan.
