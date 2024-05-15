@@ -14,10 +14,10 @@ module.exports = {
     sepolia: {
       url: `https://sepolia.infura.io/v3/${infura_api_key}`,
       accounts: [private_key],
-    },
-    etherscan: {
-      url: `https://api.etherscan.io/api?apikey=${etherscan_api_key}`
     }
+  },
+  etherscan: {
+    url: `https://api.etherscan.io/api?apikey=${etherscan_api_key}`
   },
   solidity: {
     version: "0.8.24",

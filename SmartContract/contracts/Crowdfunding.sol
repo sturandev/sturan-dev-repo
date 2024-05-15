@@ -3,11 +3,10 @@ pragma solidity ^0.8.24;
 
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
-import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/utils/math/Math.sol";
 import "@openzeppelin/contracts/utils/math/SafeCast.sol";
 
-contract Crowdfunding is ReentrancyGuard, Ownable{
+contract Crowdfunding is ReentrancyGuard {
     using Math for uint256;
     using SafeCast for uint256;
 
@@ -25,8 +24,7 @@ contract Crowdfunding is ReentrancyGuard, Ownable{
     IERC20 public token;
     Campaign public campaign;
 
-    constructor(string memory _campaignName, IERC20 _token, uint256 _duration, uint256 _maxContribution, uint256 _goal, address initialOwner) Ownable(initialOwner){
-        transferOwnership(initialOwner);
+    constructor(string memory _campaignName, IERC20 _token, uint256 _duration, uint256 _maxContribution, uint256 _goal) {
         token = _token;
         campaign.campaignName = _campaignName;
         campaign.duration = _duration;
@@ -35,37 +33,37 @@ contract Crowdfunding is ReentrancyGuard, Ownable{
         campaign.goal = _goal;
     }
 
-    function contribute(uint256 _amount)  external nonReentrant {
-        require(block.timestamp <= campaign.start + campaign.duration, "Campagne is end");
-        require(_amount <= campaign.maxContribution, "Exceeds maximum contribututon");
-        require(token.transferFrom(owner(), address (this), _amount), "Transfer failed");
-
-        require(token.allowance(owner(), address(this)) >= _amount, "Insufficient allowance");
-        require(token.transferFrom(owner(), address(this), _amount), "Transfer failed");
+    function contribute(uint256 _amount) external nonReentrant {
+        require(block.timestamp <= campaign.start + campaign.duration, "Campaign has ended");
+        require(_amount <= campaign.maxContribution, "Exceeds maximum contribution");
+        require(token.allowance(msg.sender, address(this)) >= _amount, "Insufficient allowance");
+        require(token.transferFrom(msg.sender, address(this), _amount), "Transfer failed");
 
         campaign.totalContributions += _amount;
-        campaign.contributions[owner()] += _amount;
+        campaign.contributions[msg.sender] += _amount;
     }
 
-    function withdrawl() external onlyOwner nonReentrant {
-        require(block.timestamp > campaign.start + campaign.duration, "Campagne has not end");
+    function withdraw() external nonReentrant {
+        require(block.timestamp > campaign.start + campaign.duration, "Campaign has not ended");
         require(campaign.totalContributions >= campaign.goal, "Goal not reached");
+        require(!campaign.fundRetrived, "Funds already retrieved");
 
         uint256 amount = token.balanceOf(address(this));
-        require(token.transfer(owner(), amount), "Transfer failed");
+        require(token.transfer(msg.sender, amount), "Transfer failed");
 
         campaign.fundRetrived = true;
     }
 
     function refund() external nonReentrant {
-        require(block.timestamp > campaign.start + campaign.duration, "Campagne has not end");
-        require(campaign.totalContributions < campaign.goal, "goal was reached");
-        require(!campaign.fundRetrived, "Fund has been retrived");
+        require(block.timestamp > campaign.start + campaign.duration, "Campaign has not ended");
+        require(campaign.totalContributions < campaign.goal, "Goal was reached");
+        require(!campaign.fundRetrived, "Funds have been retrieved");
 
         uint256 contribution = campaign.contributions[msg.sender];
         require(contribution > 0, "No contribution from this address");
         require(token.transfer(msg.sender, contribution), "Transfer failed");
 
+        campaign.totalContributions -= contribution;
         campaign.contributions[msg.sender] = 0;
     }
 }
