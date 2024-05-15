@@ -1,5 +1,5 @@
 //SPDX-License-Identifier: MIT
-pragma solidity ^0.8.20;
+pragma solidity ^0.8.24;
 
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
@@ -9,7 +9,7 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 
 contract Xtr is ERC20, ERC20Burnable, Ownable, ERC20Pausable {
     constructor(address initialOwner) ERC20("Xtr", "Xtr") Ownable(initialOwner) {
-        transferOwnership(initialOwner);
+        transferOwnership(initialOwner);    
         _mint(msg.sender, 100000000 *10 **decimals());
     }
 

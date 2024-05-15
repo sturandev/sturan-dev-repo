@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.20;
+pragma solidity ^0.8.24;
 
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
@@ -12,6 +12,7 @@ contract Crowdfunding is ReentrancyGuard, Ownable{
     using SafeCast for uint256;
 
     struct Campaign {
+        string campaignName;
         uint256 duration;
         uint256 maxContribution;
         uint256 start;
@@ -24,9 +25,10 @@ contract Crowdfunding is ReentrancyGuard, Ownable{
     IERC20 public token;
     Campaign public campaign;
 
-    constructor(IERC20 _token, uint256 _duration, uint256 _maxContribution, uint256 _goal, address intialOwner) Ownable(intialOwner){
-        transferOwnership(intialOwner);
+    constructor(string memory _campaignName, IERC20 _token, uint256 _duration, uint256 _maxContribution, uint256 _goal, address initialOwner) Ownable(initialOwner){
+        transferOwnership(initialOwner);
         token = _token;
+        campaign.campaignName = _campaignName;
         campaign.duration = _duration;
         campaign.maxContribution = _maxContribution;
         campaign.start = block.timestamp;
@@ -66,5 +68,4 @@ contract Crowdfunding is ReentrancyGuard, Ownable{
 
         campaign.contributions[msg.sender] = 0;
     }
-
 }
