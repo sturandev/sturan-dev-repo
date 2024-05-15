@@ -10,13 +10,11 @@ const etherscan_api_key = process.env.ETHERSCAN_API_KEY;
 module.exports = {
   networks: {
     hardhat: {
+      chainId: 11155111
     },
     sepolia: {
       url: `https://sepolia.infura.io/v3/${infura_api_key}`,
       accounts: [private_key],
-    },
-    etherscan: {
-      url: `https://api.etherscan.io/api?apikey=${etherscan_api_key}`
     }
   },
   solidity: {
@@ -27,6 +25,9 @@ module.exports = {
         runs: 200
       }
     }
+  },
+  etherscan: {
+    url: `https://api.etherscan.io/api?apikey=${etherscan_api_key}`
   },
   paths: {
     sources: "./contracts",
