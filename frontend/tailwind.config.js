@@ -15,7 +15,11 @@ module.exports = {
         navbar: "#d7d9d9",
         sky: "#0ea5e9",
         neutral: "#1d1e1f",
-        gray: "#323333"
+        gray: "#323333",
+        green: "#39f21d",
+        red: "#f50713",
+        yellow: "#f5ed07",
+        purple: "#bf07f7"
       }
     },
     extend: {
