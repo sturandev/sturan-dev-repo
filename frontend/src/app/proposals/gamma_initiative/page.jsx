@@ -59,7 +59,7 @@ const Page = () => {
             className=""
           />
           <div className="-ml-24">
-            <h1 className="font-bold text-2xl">Aloa Games</h1>
+            <h1 className="font-bold text-2xl">Gamma Initiative</h1>
             <p>
               Lorem ipsum dolor sit, amet consectetur adipisicing elit. Magni,
               quae voluptate fugit obcaecati rem sapiente at quia eaque. Aliquam

@@ -18,7 +18,7 @@ const Page = () => {
           </div>
           <SocialIcon url="https://x.com/singgih_tara" style={{ height: 30, width: 30 }} className="mt-4 ml-4" />
           <SocialIcon url="https://discord.com/singgih_tara" style={{ height: 30, width: 30 }} bgColor="#000" className="mt-4 ml-4" />
-          <SocialIcon url="https://github.com/singgih_tara" style={{ height: 30, width: 30 }} className="mt-4 ml-4" />
+          <SocialIcon url="https://github.com/sturan-Dev" style={{ height: 30, width: 30 }} className="mt-4 ml-4" />
         </div>
         <Participate/>
       </div>
