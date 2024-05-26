@@ -5,7 +5,7 @@ const Participate = () => {
     <div className="col-span-8 mr-24 ml-20">
       <p className="col-span-2 font-bold ml-4 mt-10 mb-5 text-2xl">Proposals</p>
       <div className="border-[1px] p-3 ml-4 rounded-lg border-color-gray border-opacity-10 mb-5">
-        <Link href="/">
+        <Link href="/proposals/aloa_games">
           <div className="grid grid-cols-7">
             <h1 className="col-span-6 font-bold">Aloa Games</h1>
             <p className="col-span-1 flex justify-center p-1 bg-color-green rounded-2xl text-color-white">Open</p>

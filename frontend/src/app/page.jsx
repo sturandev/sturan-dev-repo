@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { SocialIcon } from "react-social-icons";
-import Participate from "./participate/page";
+import Participate from "./proposals/page";
 
 const Page = () => {
   return (
