@@ -2,68 +2,75 @@
 pragma solidity ^0.8.24;
 
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
-import "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
-import "@openzeppelin/contracts/utils/math/Math.sol";
-import "@openzeppelin/contracts/utils/math/SafeCast.sol";
 
-contract Crowdfunding is ReentrancyGuard {
-    using Math for uint256;
-    using SafeCast for uint256;
+contract Crowdfunding {
+    string public name = "Aloa Games";
+    uint256 public goal = 25000 * 10 ** 18;
 
-    struct Campaign {
-        string campaignName;
-        uint256 duration;
-        uint256 maxContribution;
-        uint256 start;
-        uint256 goal;
-        uint256 totalContributions;
-        bool fundRetrived;
-        mapping(address => uint256) contributions;
+    IERC20 private token;
+
+    uint256 public totalFunds;
+    bool public isGoalReached;
+    bool public isClosed;
+    mapping(address => uint256) public contributions;
+
+    event Funded(address indexed user, uint256 amount);
+    event Refunded(address indexed user, uint256 amount);
+    event GoalReached();
+    event CrowdfundingClosed();
+
+    constructor(address _tokenAddress) {
+        token = IERC20(_tokenAddress);
     }
 
-    IERC20 public token;
-    Campaign public campaign;
-
-    constructor(string memory _campaignName, IERC20 _token, uint256 _duration, uint256 _maxContribution, uint256 _goal) {
-        token = _token;
-        campaign.campaignName = _campaignName;
-        campaign.duration = _duration;
-        campaign.maxContribution = _maxContribution;
-        campaign.start = block.timestamp;
-        campaign.goal = _goal;
+    modifier onlyWhileOpen() {
+        require(!isClosed, "Crowdfunding is closed");
+        _;
     }
 
-    function contribute(uint256 _amount) external nonReentrant {
-        require(block.timestamp <= campaign.start + campaign.duration, "Campaign has ended");
-        require(_amount <= campaign.maxContribution, "Exceeds maximum contribution");
-        require(token.allowance(msg.sender, address(this)) >= _amount, "Insufficient allowance");
-        require(token.transferFrom(msg.sender, address(this), _amount), "Transfer failed");
+    // Modifikasi fungsi fund untuk menggunakan transferFrom dari kontrak ERC20
+    function fund(uint256 amount) external onlyWhileOpen {
+        require(amount > 0, "Amount must be greater than 0");
+        require(
+            token.balanceOf(msg.sender) >= amount,
+            "Insufficient token balance"
+        );
 
-        campaign.totalContributions += _amount;
-        campaign.contributions[msg.sender] += _amount;
+        contributions[msg.sender] += amount;
+        totalFunds += amount;
+
+        token.transferFrom(msg.sender, address(this), amount);
+        emit Funded(msg.sender, amount);
+
+        if (totalFunds >= goal && !isGoalReached) {
+            isGoalReached = true;
+            emit GoalReached();
+        }
     }
 
-    function withdraw() external nonReentrant {
-        require(block.timestamp > campaign.start + campaign.duration, "Campaign has not ended");
-        require(campaign.totalContributions >= campaign.goal, "Goal not reached");
-        require(!campaign.fundRetrived, "Funds already retrieved");
-
-        uint256 amount = token.balanceOf(address(this));
-        require(token.transfer(msg.sender, amount), "Transfer failed");
-
-        campaign.fundRetrived = true;
+    function closeCrowdfunding() external onlyWhileOpen {
+        isClosed = true;
+        emit CrowdfundingClosed();
     }
 
-    function refund() external nonReentrant {
-        require(block.timestamp > campaign.start + campaign.duration, "Campaign has not ended");
-        require(campaign.totalContributions < campaign.goal, "Goal was reached");
-        require(!campaign.fundRetrived, "Funds have been retrieved");
+    function refund() external onlyWhileOpen {
+        require(!isGoalReached, "Goal has been reached");
 
-        uint256 contribution = campaign.contributions[msg.sender];
-        require(contribution > 0, "No contribution from this address");
-        require(token.transfer(msg.sender, contribution), "Transfer failed");
+        uint256 contribution = contributions[msg.sender];
+        require(contribution > 0, "No contribution to refund");
 
-        campaign.totalContributions -= contribution;
-        campaign.contributions[msg.sender] = 0;
+        contributions[msg.sender] = 0;
+        totalFunds -= contribution;
+
+        token.transfer(msg.sender, contribution);
+        emit Refunded(msg.sender, contribution);
+    }
+
+    function getDetails()
+        external
+        view
+        returns (string memory, uint256, uint256, bool, bool)
+    {
+        return (name, goal, totalFunds, isGoalReached, isClosed);
     }
 }

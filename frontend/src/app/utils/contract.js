@@ -1,7 +1,7 @@
 import { connectWeb3 } from "@/app/utils/web3";
 import Web3 from "web3";
+import contractABI from "../../contracts/Crowdfunding.json"
 
-// Function to get the connected account
 export const getConnectedAccount = async () => {
     try {
         const web3Instance = await connectWeb3();
@@ -16,7 +16,6 @@ export const getConnectedAccount = async () => {
     }
 };
 
-// Function to get the balance of a specific token
 export const getTokenBalance = async (account, contractAbi, contractAddress) => {
     try {
         const web3Instance = await connectWeb3();
@@ -28,3 +27,18 @@ export const getTokenBalance = async (account, contractAbi, contractAddress) => 
         throw error;
     }
 };
+
+export const createContractInstance = async() => {
+    try {
+        const web3 = await connectWeb3();
+
+        const contract = new web3.eth.Contract(
+            contractABI.abi,
+            "0xE50E8b9c3c0922fC9AB58b95d043d41c39682174"
+        );
+        return contract
+    } catch (error) {
+        console.log(error);
+        return null;
+    }
+}

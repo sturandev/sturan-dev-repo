@@ -8,6 +8,7 @@ const etherscan_api_key = process.env.ETHERSCAN_API_KEY;
 
 /** @type import('hardhat/config').HardhatUserConfig */
 module.exports = {
+  defaultNetwork: "sepolia",
   networks: {
     hardhat: {
     },

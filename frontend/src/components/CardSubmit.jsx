@@ -1,9 +1,11 @@
+"use client"
 import { X } from "@phosphor-icons/react";
 import { useEffect, useState } from "react";
 import { getConnectedAccount, getTokenBalance } from "@/app/utils/contract";
-import contractJson from "../contracts/Xtr.json"; // Import the whole JSON file
+import { fundCrowdfunding, approveToken } from "@/app/utils/fundCrowdfunding";
+import contractJson from "../contracts/Xtr.json";
 
-const contractAbi = contractJson.abi; // Access only the abi property
+const contractAbi = contractJson.abi;
 const XTRAddress = "0xB2c86ccFBfbE235657a5d2556f2B3B1156A23283";
 
 const CardSubmit = ({ onClose }) => {
@@ -45,13 +47,24 @@ const CardSubmit = ({ onClose }) => {
         }
     };
 
-    const handleSubmit = () => {
+    const handleSubmit = async () => {
         if (inputValue === '') {
-            console.log('Input value is empty');
-        } else {
-            console.log('Submitted value:', inputValue);
+          console.log('Input value is empty');
+          return;
         }
-    };
+      
+        const contributionAmount = parseFloat(inputValue);
+        const crowdfundingAddress = "0xE50E8b9c3c0922fC9AB58b95d043d41c39682174";
+      
+        try {
+            await approveToken(crowdfundingAddress, contributionAmount)
+          await fundCrowdfunding(contributionAmount);
+          console.log(`Sent ${contributionAmount} XTR to crowdfunding contract`);
+        } catch (error) {
+          console.error("Error submitting error:", error);
+        }
+      };
+      
 
     return (
         <>
