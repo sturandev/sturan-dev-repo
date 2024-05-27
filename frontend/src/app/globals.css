@@ -16,3 +16,19 @@
     animation:s4 0.5s infinite steps(10);
   }
   @keyframes s4 {to{transform: rotate(1turn)}}
+
+  .line {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 2px;
+    width: 0;
+    background: radial-gradient(circle at left, transparent 50%, #000 50%);
+    transition: width 0.3s ease, left 0.3s ease;
+    transform: scaleX(0); /* Menyembunyikan efek setengah lingkaran secara default */
+    transform-origin: left; /* Mengatur titik asal transformasi */
+  }
+  a:hover .line {
+    width: 20%;
+    transform: scaleX(1);
+  }

@@ -1,25 +1,81 @@
 import { X } from "@phosphor-icons/react";
+import { useEffect, useState } from "react";
+import { getConnectedAccount, getTokenBalance } from "@/app/utils/contract";
+import contractJson from "../contracts/Xtr.json"; // Import the whole JSON file
+
+const contractAbi = contractJson.abi; // Access only the abi property
+const XTRAddress = "0xB2c86ccFBfbE235657a5d2556f2B3B1156A23283";
 
 const CardSubmit = ({ onClose }) => {
+    const [inputValue, setInputValue] = useState('');
+    const [account, setAccount] = useState(null);
+    const [XTRBalance, setXTRBalance] = useState(0);
+
+    useEffect(() => {
+        const initializeAccount = async () => {
+            try {
+                const connectedAccount = await getConnectedAccount();
+                setAccount(connectedAccount);
+            } catch (error) {
+                console.error("Error initializing account", error);
+            }
+        };
+
+        initializeAccount();
+    }, []);
+
+    const getUserInfo = async () => {
+        try {
+            if (!account) {
+                const connectedAccount = await getConnectedAccount();
+                setAccount(connectedAccount);
+            }
+
+            const balance = await getTokenBalance(account, contractAbi, XTRAddress);
+            setXTRBalance(balance);
+        } catch (error) {
+            console.error("Error getting user info", error);
+        }
+    };
+
+    const handleChange = (event) => {
+        const value = event.target.value;
+        if (/^\d*$/.test(value)) {
+            setInputValue(value);
+        }
+    };
+
+    const handleSubmit = () => {
+        if (inputValue === '') {
+            console.log('Input value is empty');
+        } else {
+            console.log('Submitted value:', inputValue);
+        }
+    };
+
     return (
         <>
             <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm">
                 <div className="relative bg-color-primary max-w-sm rounded overflow-hidden shadow-lg bg-white backdrop-filter-none">
-                    <button onClick={onClose} className="absolute top-0 right-0 mt-2 mr-2 bg-red-500 text-white rounded-full px-2 py-1"><X size={32} /></button>
+                    <button onClick={onClose} className="absolute top-0 right-0 mt-2 mr-2 bg-red-500 text-white rounded-full px-2 py-1">
+                        <X size={32} />
+                    </button>
                     <div className="px-6 py-4">
                         <div className="font-bold text-xl mb-2">Enter your XTR Amount</div>
-                        <p className="text-gray-700 text-base">
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                            Voluptatibus quia, nulla! Maiores et perferendis eaque,
-                            exercitationem praesentium nihil.
-                        </p>
+                        <button onClick={getUserInfo}>Get User Balance</button>
+                        <p className="text-gray-700 text-base">XTR Balance: {XTRBalance}</p>
                     </div>
                     <div className="px-6 pt-4 pb-2">
                         <input
-                            className="border-[1px] rounded-lg border-opacity-10 border-color-gray"
+                            type="number"
+                            className="border-[2px] rounded-full border-opacity-20 border-color-gray p-1"
                             placeholder="Input Number"
+                            value={inputValue}
+                            onChange={handleChange}
                         />
-                        <button className="ml-3 p-2 bg-color-typography rounded-full font-semibold">Submit</button>
+                        <button onClick={handleSubmit} className="ml-3 p-2 bg-color-typography rounded-full font-semibold">
+                            Submit
+                        </button>
                     </div>
                 </div>
             </div>

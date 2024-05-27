@@ -38,7 +38,7 @@ const Page = () => {
   const handleTakePartClick = async () => {
     if (!account) {
       await handleConnect();
-    } 
+    }
     if (account) {
       setShowCardSubmit(true);
     }
@@ -53,6 +53,7 @@ const Page = () => {
       <div className="p-24">
         <div className="p-10 border-t-[2px] border-x-[2px] border-color-gray border-opacity-15 rounded-t-lg grid grid-cols-2">
           <Image
+            alt="dummy nft"
             src="/assets/dummy foto.png"
             height="300"
             width="300"
