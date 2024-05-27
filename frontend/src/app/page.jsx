@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { SocialIcon } from "react-social-icons";
-import Participate from "./proposals/page";
+import Participate from "./proposals/proposals";
 import Link from "next/link";
 
 const Page = () => {
@@ -13,10 +13,12 @@ const Page = () => {
           <p className="font-semibold ml-4 mt-1">100 Partners</p>
           <Link href="/" className="mt-1 flex justify-center p-2 text-color-white bg-color-typography rounded-full w-full hover:bg-opacity-90 transition-all duration-300">Join Partners</Link>
           <div className="mt-4 space-y-2 font-semibold flex flex-col">
-            <Link href="/proposals" className="px-4 py-2 relative overflow-hidden">
-              <span>Proposals</span>
-              <span className="line"></span>
-            </Link>
+            <div className="ml-[3px] py-2 relative overflow-hidden cursor-pointer">
+              <div className="border-b-[2px] ml-[10px]">
+                <span>Proposals</span>
+                <span className="line"></span>
+              </div>
+            </div>
             <Link href="/" className="px-4 py-2 relative overflow-hidden">
               <span>Claim XTR</span>
               <span className="line"></span>
