@@ -1,55 +1,16 @@
-"use client";
+"use client"
 import Image from "next/image";
-import Link from "next/link";
-import { connectWeb3 } from "@/app/utils/web3";
-import { useState, useEffect } from "react";
-import CardSubmit from "@/components/CardSubmit";
+import Alert from "@/components/Alert";
+import { useState } from "react";
 
 const Page = () => {
-  const [account, setAccount] = useState(null);
-  const [showCardSubmit, setShowCardSubmit] = useState(false);
-
-  useEffect(() => {
-    const checkConnection = async () => {
-      try {
-        const web3Instance = await connectWeb3();
-        const accounts = await web3Instance.eth.getAccounts();
-        if (accounts.length > 0) {
-          setAccount(accounts[0]);
-        }
-      } catch (error) {
-        console.error("Error checking connection", error);
-      }
-    };
-
-    checkConnection();
-  }, []);
-
-  const handleConnect = async () => {
-    try {
-      const web3Instance = await connectWeb3();
-      const accounts = await web3Instance.eth.getAccounts();
-      setAccount(accounts[0]);
-    } catch (error) {
-      console.error("Connection Failed", error);
-    }
-  };
-
-  const handleTakePartClick = async () => {
-    if (!account) {
-      await handleConnect();
-    }
-    if (account) {
-      setShowCardSubmit(true);
-    }
-  };
-
-  const handleCloseCardSubmit = () => {
-    setShowCardSubmit(false);
-  };
+  const[showAlert, setShowAlert] = useState(false);
+  const handleShowAlert = () => {
+    setShowAlert(true);
+  }
 
   return (
-    <div className={`bg-color-primary bg-opacity-10 ${showCardSubmit ? 'blur-background' : ''}`}>
+    <div className={`bg-color-primary bg-opacity-10 `}>
       <div className="p-24">
         <div className="p-10 border-t-[2px] border-x-[2px] border-color-gray border-opacity-15 rounded-t-lg grid grid-cols-2">
           <Image
@@ -84,11 +45,18 @@ const Page = () => {
             nisi ut aliquip ex ea commodo consequat.
           </p>
           <div className="mt-4">
-            <Link href="#" onClick={handleTakePartClick} className="p-3 bg-color-primary rounded-full hover:bg-opacity-50 transition-all ease-linear">Take Part</Link>
+            <button href="#" onClick={handleShowAlert} className="p-3 bg-color-primary rounded-full hover:bg-opacity-50 transition-all ease-linear">Take Part</button>
           </div>
         </div>
       </div>
-      {showCardSubmit && <CardSubmit onClose={handleCloseCardSubmit} />}
+      {showAlert && (
+              <div className="fixed inset-0 flex items-center justify-center z-50">
+          <div className="bg-black bg-opacity-50 absolute inset-0"></div>
+          <div className="relative bg-white p-4 rounded-lg">
+            <Alert />
+          </div>
+        </div>
+    )}
     </div>
   );
 };

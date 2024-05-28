@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { getConnectedAccount, getTokenBalance } from "@/app/utils/contract";
 import { fundCrowdfunding, approveToken } from "@/app/utils/fundCrowdfunding";
 import contractJson from "../contracts/Xtr.json";
+import Web3 from "web3";
 
 const contractAbi = contractJson.abi;
 const XTRAddress = "0xB2c86ccFBfbE235657a5d2556f2B3B1156A23283";
@@ -55,11 +56,13 @@ const CardSubmit = ({ onClose }) => {
       
         const contributionAmount = parseFloat(inputValue);
         const crowdfundingAddress = "0xE50E8b9c3c0922fC9AB58b95d043d41c39682174";
+
+        const contributorAmountInWei = Web3.utils.toWei(contributionAmount.toString(), "ether")
       
         try {
-            await approveToken(crowdfundingAddress, contributionAmount)
+            await approveToken(crowdfundingAddress, contributorAmountInWei)
           await fundCrowdfunding(contributionAmount);
-          console.log(`Sent ${contributionAmount} XTR to crowdfunding contract`);
+          onClose()
         } catch (error) {
           console.error("Error submitting error:", error);
         }
@@ -75,7 +78,7 @@ const CardSubmit = ({ onClose }) => {
                     </button>
                     <div className="px-6 py-4">
                         <div className="font-bold text-xl mb-2">Enter your XTR Amount</div>
-                        <button onClick={getUserInfo}>Get User Balance</button>
+                        <button onClick={getUserInfo} className="p-2 hover:bg-color-sky rounded-full">See My balance: </button>
                         <p className="text-gray-700 text-base">XTR Balance: {XTRBalance}</p>
                     </div>
                     <div className="px-6 pt-4 pb-2">
