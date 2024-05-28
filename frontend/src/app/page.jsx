@@ -19,19 +19,19 @@ const Page = () => {
                 <span className="line"></span>
               </div>
             </div>
-            <Link href="/" className="px-4 py-2 relative overflow-hidden">
+            <Link href="/claim_xtr" className="px-4 py-2 relative overflow-hidden">
               <span>Claim XTR</span>
               <span className="line"></span>
             </Link>
-            <Link href="/" className="px-4 py-2 relative overflow-hidden">
+            <Link href="https://github.com/Sturan-Dev/WhitePaper" target="blank" className="px-4 py-2 relative overflow-hidden">
               <span>About XTR</span>
               <span className="line"></span>
             </Link>
           </div>
           <div className="mt-4 flex ml-4 space-x-4">
-            <SocialIcon url="https://x.com/singgih_tara" style={{ height: 30, width: 30 }} />
-            <SocialIcon url="https://discord.com/singgih_tara" style={{ height: 30, width: 30 }} bgColor="#000" />
-            <SocialIcon url="https://github.com/sturan-Dev" style={{ height: 30, width: 30 }} />
+            <SocialIcon target="blank" url="https://x.com/singgih_tara" style={{ height: 30, width: 30 }} />
+            <SocialIcon target="blank" url="https://discord.com/singgih_tara" style={{ height: 30, width: 30 }} bgColor="#000" />
+            <SocialIcon target="blank" url="https://github.com/sturan-Dev" style={{ height: 30, width: 30 }} />
           </div>
         </div>
         <Participate />

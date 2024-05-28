@@ -78,7 +78,7 @@ const CardSubmit = ({ onClose }) => {
                     </button>
                     <div className="px-6 py-4">
                         <div className="font-bold text-xl mb-2">Enter your XTR Amount</div>
-                        <button onClick={getUserInfo} className="p-2 hover:bg-color-sky rounded-full">See My balance: </button>
+                        <button onClick={getUserInfo} className="p-1 hover:shadow-lg rounded-lg">See My balance </button>
                         <p className="text-gray-700 text-base">XTR Balance: {XTRBalance}</p>
                     </div>
                     <div className="px-6 pt-4 pb-2">
