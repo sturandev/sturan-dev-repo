@@ -72,3 +72,19 @@
       opacity: 0
     }
   }
+
+  @keyframes fadeInOut {
+    0% {
+      box-shadow: 0 0 10px rgb(0, 204, 255); /* warna merah */
+    }
+    50% {
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0); /* transparan */
+    }
+    100% {
+      box-shadow: 0 0 10px rgb(0, 200, 255); /* warna merah */
+    }
+  }
+  
+  .custom-shadow {
+    animation: fadeInOut 5s infinite;
+  }
