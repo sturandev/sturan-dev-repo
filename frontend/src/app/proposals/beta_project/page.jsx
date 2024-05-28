@@ -1,16 +1,21 @@
 "use client"
+import Close from "@/components/alert/Close";
 import Image from "next/image";
-import Alert from "@/components/Alert";
 import { useState } from "react";
 
 const Page = () => {
-  const[showAlert, setShowAlert] = useState(false);
+  const [showAlert, setShowAlert] = useState(false);
+
   const handleShowAlert = () => {
     setShowAlert(true);
-  }
+  };
+
+  const handleCloseAlert = () => {
+    setShowAlert(false);
+  };
 
   return (
-    <div className={`bg-color-primary bg-opacity-10 `}>
+    <div className={`bg-color-primary bg-opacity-10`}>
       <div className="p-24">
         <div className="p-10 border-t-[2px] border-x-[2px] border-color-gray border-opacity-15 rounded-t-lg grid grid-cols-2">
           <Image
@@ -45,18 +50,24 @@ const Page = () => {
             nisi ut aliquip ex ea commodo consequat.
           </p>
           <div className="mt-4">
-            <button href="#" onClick={handleShowAlert} className="p-3 bg-color-primary rounded-full hover:bg-opacity-50 transition-all ease-linear">Take Part</button>
+            <button
+              href="#"
+              onClick={handleShowAlert}
+              className="p-3 bg-color-primary rounded-full hover:bg-opacity-50 transition-all ease-linear"
+            >
+              Take Part
+            </button>
           </div>
         </div>
       </div>
       {showAlert && (
-              <div className="fixed inset-0 flex items-center justify-center z-50">
-          <div className="bg-black bg-opacity-50 absolute inset-0"></div>
+        <div className="fixed inset-0 flex items-center justify-center z-50">
+          <div className="bg-black bg-opacity-50 absolute inset-0" onClick={handleCloseAlert}></div>
           <div className="relative bg-white p-4 rounded-lg">
-            <Alert />
+            <Close/>
           </div>
         </div>
-    )}
+      )}
     </div>
   );
 };

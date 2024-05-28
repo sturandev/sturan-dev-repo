@@ -1,7 +1,7 @@
 "use client"
 import Image from "next/image";
-import Alert from "@/components/Alert";
 import { useState } from "react";
+import Pending from "@/components/alert/Pending";
 
 const Page = () => {
   const[showAlert, setShowAlert] = useState(false);
@@ -53,7 +53,7 @@ const Page = () => {
               <div className="fixed inset-0 flex items-center justify-center z-50">
           <div className="bg-black bg-opacity-50 absolute inset-0"></div>
           <div className="relative bg-white p-4 rounded-lg">
-            <Alert />
+            <Pending />
           </div>
         </div>
     )}

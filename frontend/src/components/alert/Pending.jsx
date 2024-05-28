@@ -1,7 +1,7 @@
 "use client"
 import { useEffect, useState } from "react";
 
-const Alert = () => {
+const Pending = () => {
     const [isOpen, setIsOpen] = useState(true);
 
     useEffect(() => {
@@ -17,13 +17,13 @@ const Alert = () => {
     return (
         <>
             {isOpen && (
-                <div className="bg-color-red text-center py-4 lg:px-4 relative border-b-2 alert-toast">
+                <div className="bg-color-secondary text-center py-4 lg:px-4 relative border-b-2 alert-toast">
                     <div
-                        className="p-2 bg-color-red items-center text-color-white leading-none lg:rounded-full flex lg:inline-flex"
+                        className="p-2 bg-color-secondary items-center text-color-white leading-none lg:rounded-full flex lg:inline-flex"
                         role="alert"
                     >
                         <span className="font-semibold mr-2 text-left flex-auto">
-                            Champagne is close, Stay tuned for more champagne
+                            Champagne is pending, wait until we open the champagne open again
                         </span>
                     </div>
                 </div>
@@ -32,4 +32,4 @@ const Alert = () => {
     );
 };
 
-export default Alert;
+export default Pending;
