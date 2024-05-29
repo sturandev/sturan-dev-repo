@@ -4,6 +4,7 @@ import Link from "next/link";
 import { connectWeb3 } from "@/app/utils/web3";
 import { useState, useEffect } from "react";
 import CardSubmit from "@/components/CardSubmit";
+import DontHaveBalance from "@/components/alert/DontHaveBalance";
 
 const Page = () => {
   const [account, setAccount] = useState(null);
