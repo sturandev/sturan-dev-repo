@@ -6,7 +6,9 @@ const Participate = () => {
       <p className="col-span-2 font-bold ml-4 mt-10 mb-5 text-2xl">Proposals</p>
       <span className="ml-4 text-color-red">*This website build on sepolia testnet and this website is not responsive yet 😇</span>
       <div className="ml-4">
-      <span className="text-color-red">*If you found bug in this website, please <Link href="https://singgihbrilian.tara06@gmail.com">contact me</Link></span>
+      <span className="text-color-red">*If you found bug in this website, please  <Link href="mailto:singgihbrilian.tara06@gmail.com?subject=Bug%20Report&body=Please%20describe%20the%20bug%20you%20found%3A" className="underline">
+        contact me
+      </Link></span>
       </div>
       <div className="border-[1px] p-3 ml-4 rounded-lg border-color-gray border-opacity-10 mb-5">
         <Link href="/proposals/aloa_games">
