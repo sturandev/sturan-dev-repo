@@ -23,7 +23,6 @@ const setSepoliaNetwork = async () => {
             ]
         })
     } catch (error) {
-        // alert("Gagal mengatur jaringan")
     }
 }
 
