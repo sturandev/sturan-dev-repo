@@ -27,22 +27,22 @@ const setSepoliaNetwork = async () => {
 }
 
 export const connectWeb3 = async () => {
-    return new Promise(async(resolve, reject) => {
-        if (window.ethereum) {
-            try {
-                await setSepoliaNetwork();
-                await window.ethereum.request({ method: "eth_requestAccounts" });
-                web3 = new Web3(window.ethereum);
-                resolve(web3);
-            } catch (error) {
-                console.log(error);
-                reject(error)
-            }
-        }else{
-            reject(new Error("Metamask Tidak Tersedia"))
+    return new Promise(async (resolve, reject) => {
+      if (window.ethereum && window.ethereum.isMetaMask) {
+        try {
+          await setSepoliaNetwork();
+          await window.ethereum.request({ method: "eth_requestAccounts" });
+          web3 = new Web3(window.ethereum);
+          resolve(web3);
+        } catch (error) {
+          console.log(error);
+          reject(error);
         }
-    })
-}
+      } else {
+        reject(new Error("Mohon gunakan dompet MetaMask untuk terhubung."));
+      }
+    });
+  };
 
 export const getWeb3 = () => {
     if (!web3) {
