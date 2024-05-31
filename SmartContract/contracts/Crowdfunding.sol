@@ -6,6 +6,7 @@ import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 contract Crowdfunding {
     string public name = "Aloa Games";
     uint256 public goal = 25000 * 10 ** 18;
+    uint256 public constant MAX_CONTRIBUTION = 300 * 10 ** 18;
 
     IERC20 private token;
 
@@ -13,6 +14,7 @@ contract Crowdfunding {
     bool public isGoalReached;
     bool public isClosed;
     mapping(address => uint256) public contributions;
+    address[] public contributor;
 
     event Funded(address indexed user, uint256 amount);
     event Refunded(address indexed user, uint256 amount);
@@ -28,16 +30,24 @@ contract Crowdfunding {
         _;
     }
 
-    // Modifikasi fungsi fund untuk menggunakan transferFrom dari kontrak ERC20
     function fund(uint256 amount) external onlyWhileOpen {
         require(amount > 0, "Amount must be greater than 0");
         require(
             token.balanceOf(msg.sender) >= amount,
             "Insufficient token balance"
         );
+        require(contributions[msg.sender] == 0, "user already contributed");
+        require(
+            amount <= MAX_CONTRIBUTION,
+            "Contributor exceeds the maximum limit"
+        );
 
         contributions[msg.sender] += amount;
         totalFunds += amount;
+
+        if (contributions[msg.sender] == 0) {
+            contributor.push(msg.sender);
+        }
 
         token.transferFrom(msg.sender, address(this), amount);
         emit Funded(msg.sender, amount);
@@ -72,5 +82,9 @@ contract Crowdfunding {
         returns (string memory, uint256, uint256, bool, bool)
     {
         return (name, goal, totalFunds, isGoalReached, isClosed);
+    }
+
+    function getContributors() external view returns (address[] memory) {
+        return contributor;
     }
 }

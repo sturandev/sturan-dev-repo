@@ -1,6 +1,6 @@
 "use client"
+import { connectWeb3 } from "@/app/utils/web3";
 import { useState } from "react";
-import { connectWeb3, getWeb3 } from "../../app/utils/web3";
 
 const ConnectButton = () => {
 
