@@ -16,7 +16,7 @@
     "@walletconnect/modal": "^2.6.2",
     "@web3modal/wagmi": "^4.2.3",
     "dotenv": "^16.4.5",
-    "next": "14.2.3",
+    "next": "^14.2.3",
     "react": "^18",
     "react-dom": "^18",
     "react-social-icons": "^6.16.0",

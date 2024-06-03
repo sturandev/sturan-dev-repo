@@ -1,8 +1,8 @@
 "use client"
 import { X } from "@phosphor-icons/react";
 import { useEffect, useState } from "react";
-import { getConnectedAccount, getTokenBalance } from "@/app/utils/contract";
-import { fundCrowdfunding, approveToken } from "@/app/utils/fundCrowdfunding";
+import { getConnectedAccount, getTokenBalance } from "../app/utils/contract";
+import { fundCrowdfunding, approveToken } from "../app/utils/fundCrowdfunding";
 import contractJson from "../contracts/Xtr.json";
 import Web3 from "web3";
 import DontHaveBalance from "./alert/DontHaveBalance";
@@ -62,7 +62,8 @@ const CardSubmit = ({ onClose }) => {
         }
 
         const contributionAmount = parseFloat(inputValue);
-        const crowdfundingAddress = "0xcf02dCB247fdAbcb4b6AAe9e8De637f222E0C0a8";
+        const crowdfundingAddress = "0x56890587B36c654cd93993876ceBB6AE91736162"; //crowdfunding contract
+        
 
         const contributorAmountInWei = Web3.utils.toWei(contributionAmount.toString(), "ether");
 
