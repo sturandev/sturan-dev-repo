@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import { getContributors } from "../utils/contract";
 
-const DataContributor = () => {
+const Page = () => {
     const [contributions, setContributions] = useState({})
 
     useEffect(() => {
@@ -21,4 +21,4 @@ const DataContributor = () => {
     );
 };
 
-export default DataContributor;
+export default Page;

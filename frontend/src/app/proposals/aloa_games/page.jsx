@@ -1,14 +1,14 @@
 "use client";
 import Image from "next/image";
-import Link from "next/link";
 import { useState, useEffect } from "react";
-import { connectWeb3 } from "../../utils/web3"
-import { CardSubmit } from "../../../components/CardSubmit"
-import DataContributor from "../../dataContributor/page"
+import { connectWeb3 } from "../../utils/web3";
+import CardSubmit from "../../../components/CardSubmit";
+import { getContributors } from "../../utils/contract";
 
 const Page = () => {
   const [account, setAccount] = useState(null);
   const [showCardSubmit, setShowCardSubmit] = useState(false);
+  const [contributors, setContributors] = useState([]);
 
   useEffect(() => {
     const checkConnection = async () => {
@@ -24,6 +24,20 @@ const Page = () => {
     };
 
     checkConnection();
+  }, []);
+
+  useEffect(() => {
+    const fetchContributors = async () => {
+      try {
+        const contributorsList = await getContributors();
+        console.log("Fetched Contributor:", contributorsList);
+        setContributors(contributorsList);
+      } catch (error) {
+        console.error("Error fetching contributors", error);
+      }
+    };
+
+    fetchContributors();
   }, []);
 
   const handleConnect = async () => {
@@ -84,13 +98,12 @@ const Page = () => {
             enim ad minim veniam, quis nostrud exercitation ullamco laboris
             nisi ut aliquip ex ea commodo consequat.
           </p>
-          <div className="mt-6">
-            <Link href="#" onClick={handleTakePartClick} className="p-3  bg-color-primary rounded-full hover:bg-opacity-50 transition-all ease-linear">Take Part</Link>
+          <div className="mt-4">
+            <button href="#" onClick={handleTakePartClick} className="p-3 bg-color-primary rounded-full hover:bg-opacity-50 transition-all ease-linear">Take Part</button>
           </div>
         </div>
       </div>
       {showCardSubmit && <CardSubmit onClose={handleCloseCardSubmit} />}
-      <DataContributor />
     </div>
   );
 };

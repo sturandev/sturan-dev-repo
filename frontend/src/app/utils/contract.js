@@ -61,6 +61,7 @@ export const getContributors = async () => {
 
         console.log("Contributions Fetched:", contributions);
         return contributions;
+        
     } catch (error) {
         console.error("Error fetching contributions", error);
         return {};
