@@ -4,8 +4,8 @@ Proyek ini adalah implementasi dari kontrak pintar Ethereum untuk platform E-cro
 
 ## Persyaratan
 
-- Node.js v16.0.0 atau lebih baru
-- npm v7.0.0 atau lebih baru
+- Node.js v18.*.* atau lebih baru
+- npm v7.*.* atau lebih baru
 - Akun Infura
 
 ## Instalasi
