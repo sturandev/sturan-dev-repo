@@ -1,36 +1,36 @@
 // import{ useWeb }
-import { Web3 } from "web3"
+import Web3  from "web3"
 let web3;
-const setSepoliaNetwork = async () => {
-    const networkName = "SepoliaETH";
-    const rpcUrl = process.env.INFURA_API_KEY;
-
+const setInfuraSepoliaNetwork = async () => {
+    const networkName = "Sepolia Sturan Network"; // Nama jaringan yang ingin diatur
+    const rpcUrl = process.env.INFURA_API_KEY; // RPC URL Infura Sepolia
+  
     try {
-        await ethereum.request({
-            method: "wallet_addEthereumChain",
-            params:[
-                {
-                    chainId: "0xaa36a7",
-                    chainName: networkName,
-                    nativeCurrency: {
-                        name: "SepoliaEth",
-                        symbol: "SETH",
-                        decimals: 18
-                    },
-                    rpcUrl: [rpcUrl],
-                    blockExplorerUrls: ["https://sepolia.etherscan.io/"]
-                }
-            ]
-        })
+      await ethereum.request({
+        method: "wallet_addEthereumChain",
+        params: [
+          {
+            chainId: "0xaa36a7", // ID jaringan, gunakan ID yang sesuai
+            chainName: networkName,
+            nativeCurrency: {
+              name: "SepoliaETH", // Nama mata uang jaringan
+              symbol: "SETH", // Simbol mata uang jaringan
+              decimals: 18,
+            },
+            rpcUrls: [rpcUrl],
+            blockExplorerUrls: ["https://sepolia.etherscan.io/"], // URL explorer block jaringan
+          },
+        ],
+      });
     } catch (error) {
+    //   console.error("Gagal mengatur jaringan di Metamask:", error);
     }
-}
-
+  };
 export const connectWeb3 = async () => {
     return new Promise(async (resolve, reject) => {
-      if (window.ethereum && window.ethereum.isMetaMask) {
+      if (window.ethereum) {
         try {
-          await setSepoliaNetwork();
+          await setInfuraSepoliaNetwork();
           await window.ethereum.request({ method: "eth_requestAccounts" });
           web3 = new Web3(window.ethereum);
           resolve(web3);

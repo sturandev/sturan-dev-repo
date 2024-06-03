@@ -2,10 +2,23 @@ import Link from "next/link";
 
 const Participate = () => {
   return (
+<<<<<<< HEAD
     <div className="lg:mt-0 lg:pr-16 ms:mx-6 md:-mt-8">
       <p className="font-bold text-2xl mb-5 ml-4 lg:mt-10">Proposals</p>
       <div className="ml-4 mt-2">
         <span className="text-color-red">*If you find a bug in this website, please <Link href="mailto:singgihbrilian.tara06@gmail.com?subject=Bug%20Report&body=Please%20describe%20the%20bug%20you%20found%3A" className="underline">contact me</Link></span>
+=======
+    <div className="col-span-8 mr-24 ml-20">
+      <p className="col-span-2 font-bold ml-4 mt-10 mb-5 text-2xl">Proposals</p>
+      <span className="ml-4 text-color-red">*This website build on sepolia testnet so please switch network to sepolia.</span>
+      <div>
+      <span className="ml-4 text-color-red">*and this website is not responsive yet 😇</span>
+      </div>
+      <div className="ml-4 mb-3">
+      <span className="text-color-red">*If you found bug in this website, please  <Link href="mailto:singgihbrilian.tara06@gmail.com?subject=Bug%20Report&body=Please%20describe%20the%20bug%20you%20found%3A" className="underline">
+        contact me
+      </Link></span>
+>>>>>>> 9d044a39d50702357625529d6d4b3c812c1bc1b2
       </div>
       <div className="mt-4 space-y-4 px-4">
         <ProposalCard 
