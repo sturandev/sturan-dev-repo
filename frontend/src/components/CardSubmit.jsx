@@ -8,7 +8,7 @@ import Web3 from "web3";
 import DontHaveBalance from "./alert/DontHaveBalance";
 
 const contractAbi = contractJson.abi;
-const XTRAddress = "0xB2c86ccFBfbE235657a5d2556f2B3B1156A23283";
+const XTRAddress = "0xB2c86ccFBfbE235657a5d2556f2B3B1156A23283"; //address xtr token
 
 const CardSubmit = ({ onClose }) => {
     const [inputValue, setInputValue] = useState('');
