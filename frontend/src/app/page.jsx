@@ -6,7 +6,7 @@ import Link from "next/link";
 const Page = () => {
   return (
     <>
-      <div className="bg-color-primary bg-opacity-10 h-[1000px] grid grid-cols-10 gap-4">
+      <div className="bg-color-primary bg-opacity-10 h-[1200px] grid grid-cols-10 gap-4">
         <div className="col-span-2 border-[1px] p-3 rounded-lg border-color-gray ml-20 mt-10 -mr-16 border-opacity-10 h-[400px]">
           <Image src="/assets/XTR-Logo.png" alt="xtr logo" width="50" height="50" className="mt-3 ml-3" />
           <p className="font-bold ml-4 mt-2 text-xl">STURAN</p>

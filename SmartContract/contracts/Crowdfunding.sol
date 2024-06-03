@@ -14,7 +14,7 @@ contract Crowdfunding {
     bool public isGoalReached;
     bool public isClosed;
     mapping(address => uint256) public contributions;
-    address[] public contributor;
+    address[] private contributorsList;
 
     event Funded(address indexed user, uint256 amount);
     event Refunded(address indexed user, uint256 amount);
@@ -36,18 +36,17 @@ contract Crowdfunding {
             token.balanceOf(msg.sender) >= amount,
             "Insufficient token balance"
         );
-        require(contributions[msg.sender] == 0, "user already contributed");
         require(
             amount <= MAX_CONTRIBUTION,
             "Contributor exceeds the maximum limit"
         );
 
+        if (contributions[msg.sender] == 0) {
+            contributorsList.push(msg.sender);
+        }
+
         contributions[msg.sender] += amount;
         totalFunds += amount;
-
-        if (contributions[msg.sender] == 0) {
-            contributor.push(msg.sender);
-        }
 
         token.transferFrom(msg.sender, address(this), amount);
         emit Funded(msg.sender, amount);
@@ -67,7 +66,10 @@ contract Crowdfunding {
         require(!isGoalReached, "Goal has been reached");
 
         uint256 contribution = contributions[msg.sender];
-        require(contribution > 0, "No contribution to refund");
+        require(
+            contribution > 0,
+            "You have not contributed to this crowdfunding"
+        );
 
         contributions[msg.sender] = 0;
         totalFunds -= contribution;
@@ -85,6 +87,22 @@ contract Crowdfunding {
     }
 
     function getContributors() external view returns (address[] memory) {
-        return contributor;
+        address[] memory result = new address[](contributorsList.length);
+        uint256 index = 0;
+
+        for (uint256 i = 0; i < contributorsList.length; i++) {
+            if (contributions[contributorsList[i]] > 0) {
+                result[index] = contributorsList[i];
+                index++;
+            }
+        }
+
+        // Resize the array to remove empty slots
+        address[] memory trimmedResult = new address[](index);
+        for (uint256 i = 0; i < index; i++) {
+            trimmedResult[i] = result[i];
+        }
+
+        return trimmedResult;
     }
 }

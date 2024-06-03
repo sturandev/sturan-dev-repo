@@ -62,7 +62,7 @@ const CardSubmit = ({ onClose }) => {
         }
 
         const contributionAmount = parseFloat(inputValue);
-        const crowdfundingAddress = "0xcf02dCB247fdAbcb4b6AAe9e8De637f222E0C0a8";
+        const crowdfundingAddress = "0x56890587B36c654cd93993876ceBB6AE91736162";
 
         const contributorAmountInWei = Web3.utils.toWei(contributionAmount.toString(), "ether");
 

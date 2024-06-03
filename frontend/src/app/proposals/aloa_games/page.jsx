@@ -1,15 +1,14 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import { useState, useEffect } from "react";
+import { useState, useEffect, use } from "react";
 import { connectWeb3 } from "@/app/utils/web3";
 import CardSubmit from "@/components/CardSubmit";
-import { getContributors } from "@/app/utils/contract";
+import DataContributor from "@/app/dataContributor/page";
 
 const Page = () => {
   const [account, setAccount] = useState(null);
   const [showCardSubmit, setShowCardSubmit] = useState(false);
-  const [contributors, setContributors] = useState([]);
 
   useEffect(() => {
     const checkConnection = async () => {
@@ -25,20 +24,6 @@ const Page = () => {
     };
 
     checkConnection();
-  }, []);
-
-  useEffect(() => {
-    const fetchContributors = async () => {
-      try {
-        const contributorsList = await getContributors();
-        console.log("Fetched Contributor:", contributorsList);
-        setContributors(contributorsList);
-      } catch (error) {
-        console.error("Error fetching contributors", error);
-      }
-    };
-
-    fetchContributors();
   }, []);
 
   const handleConnect = async () => {
@@ -99,24 +84,13 @@ const Page = () => {
             enim ad minim veniam, quis nostrud exercitation ullamco laboris
             nisi ut aliquip ex ea commodo consequat.
           </p>
-          <div className="mt-4">
-            <Link href="#" onClick={handleTakePartClick} className="p-3 bg-color-primary rounded-full hover:bg-opacity-50 transition-all ease-linear">Take Part</Link>
-          </div>
-          <div className="mt-4">
-            <h2>Contributors</h2>
-            <ul>
-              {contributors.length === 0 ? (
-                <li>No contributors yet</li>
-              ) : (
-                contributors.map((contributor, index) => (
-                  <li key={index}>{contributor}</li>
-                ))
-              )}
-            </ul>
+          <div className="mt-6">
+            <Link href="#" onClick={handleTakePartClick} className="p-3  bg-color-primary rounded-full hover:bg-opacity-50 transition-all ease-linear">Take Part</Link>
           </div>
         </div>
       </div>
       {showCardSubmit && <CardSubmit onClose={handleCloseCardSubmit} />}
+      <DataContributor />
     </div>
   );
 };

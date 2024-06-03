@@ -1,6 +1,6 @@
 import { connectWeb3 } from "@/app/utils/web3";
 import Web3 from "web3";
-import contractABI from "../../contracts/Crowdfunding.json"
+import contractABI from "../../../../SmartContract/ignition/deployments/chain-11155111/artifacts/CrowdfundingModule#Crowdfunding.json"
 
 const web3 = new Web3();
 export const getConnectedAccount = async () => {
@@ -31,30 +31,38 @@ export const getTokenBalance = async (account, contractAbi, contractAddress) => 
 
 export const createContractInstance = async() => {
     try {
-        const web3 = await connectWeb3();
-
         const contract = new web3.eth.Contract(
             contractABI.abi,
-            "0xcf02dCB247fdAbcb4b6AAe9e8De637f222E0C0a8"
+            "0x56890587B36c654cd93993876ceBB6AE91736162"
         );
-        return contract
+
+        return contract;
     } catch (error) {
         console.log(error);
         return null;
     }
-}
+};
 
-export const getContributors = async() => {
+export const getContributors = async () => {
     try {
         const contract = await createContractInstance();
         if (!contract) {
-            throw new Error("Failed to create contract intance")
+            throw new Error("Failed to create contract instance");
         }
-        const contributors = web3.eth.getTransaction(contract)
-        console.log("Contributor fetched", contributors);
-        return contributors;
+
+        const contributors = await contract.methods.getContributors().call();
+        const contributions = {};
+
+        for (let i = 0; i < contributors.length; i++) {
+            const contributor = contributors[i];
+            const contribution = await contract.methods.contributions(contributor).call();
+            contributions[contributor] = Number(contribution);
+        }
+
+        console.log("Contributions Fetched:", contributions);
+        return contributions;
     } catch (error) {
-        console.error("Error getting contributors address", error);
-        throw error;
+        console.error("Error fetching contributions", error);
+        return {};
     }
-}
+};
