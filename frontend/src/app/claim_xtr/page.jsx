@@ -18,7 +18,6 @@ const Page = () => {
     } finally{
       setIsLoading(false);
     }
-
   };
 
   return (
@@ -35,7 +34,7 @@ const Page = () => {
           <button onClick={handleClick} disabled={isLoading} className="p-2 bg-color-primary rounded-xl hover:bg-opacity-70 transition duration-300 mb-4">
             {isLoading ? "Loading..." : "Claim XTR"}
           </button>
-          <p className="text-center">If you don't have MetaMask, you can download it from this <Link target="blank" href="https://chromewebstore.google.com/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn?hl=id" className="text-blue-500 hover:underline">Link</Link></p>
+          <p className="text-center">If you don't have MetaMask, you can download it from this <Link target="blank" href="https://chromewebstore.google.com/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn?hl=id" className="text-color-secondary underline">Link</Link></p>
         </div>
       </div>
     </div>
