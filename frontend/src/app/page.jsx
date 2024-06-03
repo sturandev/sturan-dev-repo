@@ -11,7 +11,6 @@ const Page = () => {
 
   return (
     <>
-<<<<<<< HEAD
       <header className="bg-color-primary border-b-2 border-color-gray border-opacity-10 p-4 mb-4 rounded-xl shadow-xl fixed bottom-0 left-0 w-full lg:hidden z-50">
         <div className="flex justify-between items-center mx-4">
           <div className="flex items-center space-x-4">
@@ -59,16 +58,6 @@ const Page = () => {
               Join Partners
             </Link>
             <div className="mt-4 space-y-2 font-semibold flex flex-col px-4 py-2 relative overflow-hidden">
-=======
-      <div className="bg-color-primary bg-opacity-10 h-[1200px] grid grid-cols-10 gap-4">
-        <div className="col-span-2 border-[1px] p-3 rounded-lg border-color-gray ml-20 mt-10 -mr-16 border-opacity-10 h-[400px]">
-          <Image src="/assets/XTR-Logo.png" alt="xtr logo" width="50" height="50" className="mt-3 ml-3" />
-          <p className="font-bold ml-4 mt-2 text-xl">STURAN</p>
-          <p className="font-semibold ml-4 mt-1">100 Partners</p>
-          <Link href="/" className="mt-1 flex justify-center p-2 text-color-white bg-color-typography rounded-full w-full hover:bg-opacity-90 transition-all duration-300">Join Partners</Link>
-          <div className="mt-4 space-y-2 font-semibold flex flex-col">
-            <div className="ml-[3px] py-2 relative overflow-hidden cursor-pointer">
->>>>>>> 9d044a39d50702357625529d6d4b3c812c1bc1b2
               <div className="border-b-[2px] ml-[10px]">
                 <span>Proposals</span>
                 <span className="line"></span>

@@ -1,4 +1,4 @@
-import { connectWeb3 } from "@/app/utils/web3";
+import { connectWeb3 } from "./web3";
 import Web3 from "web3";
 import contractABI from "../../../../SmartContract/ignition/deployments/chain-11155111/artifacts/CrowdfundingModule#Crowdfunding.json"
 

@@ -1,7 +1,7 @@
 "use client"
 import Image from "next/image";
 import { useState } from "react";
-import Pending from "@/components/alert/Pending";
+import Pending from "../../../components/alert/Pending";
 
 const Page = () => {
   const[showAlert, setShowAlert] = useState(false);

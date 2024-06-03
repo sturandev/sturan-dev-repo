@@ -1,5 +1,5 @@
 "use client"
-import Close from "@/components/alert/Close";
+import Close from "../../../components/alert/Close";
 import Image from "next/image";
 import { useState } from "react";
 

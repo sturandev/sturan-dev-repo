@@ -1,8 +1,8 @@
 "use client"
 import { X } from "@phosphor-icons/react";
 import { useEffect, useState } from "react";
-import { getConnectedAccount, getTokenBalance } from "@/app/utils/contract";
-import { fundCrowdfunding, approveToken } from "@/app/utils/fundCrowdfunding";
+import { getConnectedAccount, getTokenBalance } from "../app/utils/contract";
+import { fundCrowdfunding, approveToken } from "../app/utils/fundCrowdfunding";
 import contractJson from "../contracts/Xtr.json";
 import Web3 from "web3";
 import DontHaveBalance from "./alert/DontHaveBalance";

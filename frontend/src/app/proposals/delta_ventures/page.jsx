@@ -1,9 +1,9 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import { connectWeb3 } from "@/app/utils/web3";
+import { connectWeb3 } from "../../utils/web3";
 import { useState, useEffect } from "react";
-import CardSubmit from "@/components/CardSubmit";
+import CardSubmit from "../../../components/CardSubmit";
 
 const Page = () => {
   const [account, setAccount] = useState(null);
